@@ -1,26 +1,49 @@
-import './style.scss';
-import './editor.scss';
+const { Component } = wp.element;
+
+import "./style.scss";
+import "./editor.scss";
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
-registerBlockType( 'cgb/testimonial', {
-	title: __( 'Testimonial - CGB' ),
-	icon: 'shield',
-	category: 'common',
-	keywords: [
-		__( 'testimonial' ),
-		__( 'create guten block Example' ),
-		__( 'cgb' ),
-	],
-	edit: function( props ) {
+const BlockContent = () => {
+	const testimonial = "Testimonial...";
+	const avatarUrl = "https://placehold.it/55x55";
+	const name = "Citation Name";
+	return (
+		<div id="cgb-testimonial" className="cgb-testimonial">
+			<div className="cgb-testimonial-text">{testimonial}</div>
+			<div className="cgb-testimonial-info">
+				<div className="cgb-testimonial-avatar-wrap">
+					<img src={avatarUrl} />
+				</div>
+				<h2 className="cgb-testimonial-avatar-name">{name}</h2>
+			</div>
+		</div>
+	);
+};
+
+class EditBlock extends Component {
+	render( ) {
+		return [
+			<BlockContent />
+		];
+	}
+}
+
+registerBlockType("cgb/testimonial", {
+	title: __("Testimonial - CGB"),
+	icon: "shield",
+	category: "common",
+	keywords: [__("testimonial"), __("create guten block Example"), __("cgb")],
+	edit: function() {
 		return (
-			<h2>Testimonial CGB - Step 1</h2>
+			<EditBlock />
 		);
 	},
 	save: function( props ) {
 		return (
-            <h2>Testimonial CGB - Step 1</h2>
+			<BlockContent />
 		);
-	},
-} );
+	}
+});
