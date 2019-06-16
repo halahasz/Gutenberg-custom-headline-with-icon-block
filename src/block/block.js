@@ -12,7 +12,7 @@ const {
 	MediaUpload
 } = wp.editor;
 
-const { Button, PanelBody } = wp.components;
+const { Button, PanelBody, SelectControl } = wp.components;
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
@@ -32,9 +32,20 @@ class Inspector extends Component {
 			{ color: "#7941b6", name: "purple" },
 			{ color: "#392F43", name: "black" }
 		];
+
+		const fontSizeOptions = [
+			{ value: "18px", label: __("18px") },
+			{ value: "20px", label: __("20px") },
+			{ value: "22px", label: __("22px") },
+			{ value: "24px", label: __("24px") },
+			{ value: "26px", label: __("26px") },
+			{ value: "28px", label: __("28px") },
+			{ value: "30px", label: __("30px") },
+			{ value: "32px", label: __("32px") }
+		];
 		const {
 			setAttributes,
-			attributes: { text_color }
+			attributes: { text_color, font_size }
 		} = this.props;
 		return (
 			<InspectorControls key="inspector">
@@ -51,6 +62,13 @@ class Inspector extends Component {
 							}
 						]}
 					/>
+					<SelectControl
+						label={__("Font size")}
+						description={__("")}
+						options={fontSizeOptions}
+						value={font_size}
+						onChange={value => this.props.setAttributes({ font_size: value })}
+					/>
 				</PanelBody>
 			</InspectorControls>
 		);
@@ -60,7 +78,7 @@ class Inspector extends Component {
 class HeadlineBlock extends Component {
 	render() {
 		const {
-			attributes: { headline, iconUrl, iconId, text_color },
+			attributes: { headline, iconUrl, iconId, text_color, font_size },
 			setAttributes
 		} = this.props;
 
@@ -68,10 +86,9 @@ class HeadlineBlock extends Component {
 			<Inspector {...{ setAttributes, ...this.props }} />,
 			<div
 				id="custom-headline"
-				className="custom-headline"
+				className={"font-" + font_size}
 				style={{
-					color: text_color,
-					padding: "20px"
+					color: text_color
 				}}
 			>
 				<MediaUpload
@@ -121,7 +138,9 @@ class HeadlineBlock extends Component {
 
 registerBlockType("custom/headline", {
 	title: __("Custom Headline with Icon"),
-	icon: "shield",
+	icon: {
+		src: icons.icon
+	},
 	category: "common",
 	keywords: [__("testimonial"), __("create guten block Example"), __("cgb")],
 	attributes: {
@@ -139,17 +158,21 @@ registerBlockType("custom/headline", {
 		text_color: {
 			type: "string",
 			default: "black"
+		},
+		font_size: {
+			type: "string",
+			default: "20px"
 		}
 	},
 	edit: HeadlineBlock,
 	save: function(props) {
 		const {
-			attributes: { headline, iconUrl, text_color }
+			attributes: { headline, iconUrl, text_color, font_size }
 		} = props;
 		return (
 			<div
 				id="custom-headline"
-				className="custom-headline"
+				className={"font-" + font_size}
 				style={{
 					color: text_color
 				}}
