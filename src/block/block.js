@@ -60,7 +60,7 @@ class Inspector extends Component {
 class HeadlineBlock extends Component {
 	render() {
 		const {
-			attributes: { testimonial, avatarUrl, avatarId, name, text_color },
+			attributes: { headline, avatarUrl, avatarId, text_color },
 			setAttributes
 		} = this.props;
 
@@ -109,13 +109,13 @@ class HeadlineBlock extends Component {
 					multiline="p"
 					placeholder={__("Add testimonial text...")}
 					keepPlaceholderOnFocus
-					value={testimonial}
+					value={headline}
 					formattingControls={["bold", "italic", "strikethrough", "link"]}
 					className="custom-headline-text"
 					style={{
 						color: text_color
 					}}
-					onChange={value => setAttributes({ testimonial: value })}
+					onChange={value => setAttributes({ headline: value })}
 				/>
 				
 			</div>
@@ -129,9 +129,8 @@ registerBlockType("custom-headline", {
 	category: "common",
 	keywords: [__("testimonial"), __("create guten block Example"), __("cgb")],
 	attributes: {
-		testimonial: {
+		HeadlineBlock: {
 			type: "string",
-			default: "This is a testimonial"
 		},
 		avatarUrl: {
 			type: "string",
@@ -140,10 +139,6 @@ registerBlockType("custom-headline", {
 		avatarId: {
 			type: "int",
 			default: null
-		},
-		name: {
-			type: "string",
-			default: "Citation Name"
 		},
 		text_color: {
 			type: "string",
@@ -154,9 +149,8 @@ registerBlockType("custom-headline", {
 	save: function(props) {
 		const {
 			attributes: {
-				testimonial,
+				headline,
 				avatarUrl,
-				name,
 				text_color,
 			}
 		} = props;
@@ -175,23 +169,13 @@ registerBlockType("custom-headline", {
 						style={{
 							color: text_color
 						}}
-						value={testimonial}
+						value={headline}
 					/>
 				)}
 				<div className="custom-headline-info">
 					<div className="custom-headline-icon-wrap">
 						<img src={avatarUrl} />
 					</div>
-					{name && !!name.length && (
-						<RichText.Content
-							tagName="h2"
-							className="custom-headline-icon-name"
-							style={{
-								color: text_color
-							}}
-							value={name}
-						/>
-					)}
 				</div>
 			</div>
 		);
