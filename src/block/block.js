@@ -12,7 +12,7 @@ const {
 	MediaUpload
 } = wp.editor;
 
-const { Button, PanelBody, SelectControl } = wp.components;
+const { Button, PanelBody } = wp.components;
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
@@ -57,7 +57,7 @@ class Inspector extends Component {
 	}
 }
 
-class CGBTestimonialBlock extends Component {
+class HeadlineBlock extends Component {
 	render() {
 		const {
 			attributes: { testimonial, avatarUrl, avatarId, name, text_color },
@@ -67,8 +67,8 @@ class CGBTestimonialBlock extends Component {
 		return [
 			<Inspector {...{ setAttributes, ...this.props }} />,
 			<div
-				id="cgb-testimonial"
-				className="cgb-testimonial"
+				id="custom-headline"
+				className="custom-headline"
 				style={{
 					color: text_color,
 					padding: "30px"
@@ -81,14 +81,14 @@ class CGBTestimonialBlock extends Component {
 					keepPlaceholderOnFocus
 					value={testimonial}
 					formattingControls={["bold", "italic", "strikethrough", "link"]}
-					className="cgb-testimonial-text"
+					className="custom-headline-text"
 					style={{
 						color: text_color
 					}}
 					onChange={value => setAttributes({ testimonial: value })}
 				/>
-				<div className="cgb-testimonial-info">
-					<div className="cgb-testimonial-avatar-wrap">
+				<div className="custom-headline-info">
+					<div className="custom-headline-avatar-wrap">
 						<MediaUpload
 							buttonProps={{
 								className: "change-image"
@@ -107,7 +107,7 @@ class CGBTestimonialBlock extends Component {
 										<div className="icon">{icons.upload}</div>
 									) : (
 										<img
-											className="cgb-testimonial-avatar"
+											className="custom-headline-icon"
 											src={avatarUrl}
 											alt="avatar"
 										/>
@@ -116,14 +116,14 @@ class CGBTestimonialBlock extends Component {
 							)}
 						/>
 					</div>
-					<h2 className="cgb-testimonial-avatar-name">
+					<h2 className="custom-headline-name">
 						<RichText
 							tagName="h2"
 							placeholder={__("Add name...")}
 							keepPlaceholderOnFocus
 							value={name}
 							formattingControls={["bold", "italic", "strikethrough", "link"]}
-							className="cgb-testimonial-avatar-name"
+							className="custom-headline-icon-name"
 							style={{
 								color: text_color
 							}}
@@ -137,7 +137,7 @@ class CGBTestimonialBlock extends Component {
 }
 
 registerBlockType("cgb/testimonial", {
-	title: __("Testimonial - CGB"),
+	title: __("Custom Headline with Icon"),
 	icon: "shield",
 	category: "common",
 	keywords: [__("testimonial"), __("create guten block Example"), __("cgb")],
@@ -163,7 +163,7 @@ registerBlockType("cgb/testimonial", {
 			default: "black"
 		}
 	},
-	edit: CGBTestimonialBlock,
+	edit: HeadlineBlock,
 	save: function(props) {
 		const {
 			attributes: {
@@ -175,8 +175,8 @@ registerBlockType("cgb/testimonial", {
 		} = props;
 		return (
 			<div
-				id="cgb-testimonial"
-				className="cgb-testimonial"
+				id="custom-headline"
+				className="custom-headline"
 				style={{
 					color: text_color
 				}}
@@ -184,21 +184,21 @@ registerBlockType("cgb/testimonial", {
 				{testimonial && !!testimonial.length && (
 					<RichText.Content
 						tagName="div"
-						className="cgb-testimonial-text"
+						className="custom-headline-text"
 						style={{
 							color: text_color
 						}}
 						value={testimonial}
 					/>
 				)}
-				<div className="cgb-testimonial-info">
-					<div className="cgb-testimonial-avatar-wrap">
+				<div className="custom-headline-info">
+					<div className="custom-headline-icon-wrap">
 						<img src={avatarUrl} />
 					</div>
 					{name && !!name.length && (
 						<RichText.Content
 							tagName="h2"
-							className="cgb-testimonial-avatar-name"
+							className="custom-headline-icon-name"
 							style={{
 								color: text_color
 							}}
