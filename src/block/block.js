@@ -71,23 +71,10 @@ class HeadlineBlock extends Component {
 				className="custom-headline"
 				style={{
 					color: text_color,
-					padding: "30px"
+					padding: "20px"
 				}}
 			>
-				<RichText
-					tagName="div"
-					multiline="p"
-					placeholder={__("Add testimonial text...")}
-					keepPlaceholderOnFocus
-					value={testimonial}
-					formattingControls={["bold", "italic", "strikethrough", "link"]}
-					className="custom-headline-text"
-					style={{
-						color: text_color
-					}}
-					onChange={value => setAttributes({ testimonial: value })}
-				/>
-				<div className="custom-headline-info">
+			<div className="custom-headline-info">
 					<div className="custom-headline-avatar-wrap">
 						<MediaUpload
 							buttonProps={{
@@ -116,27 +103,27 @@ class HeadlineBlock extends Component {
 							)}
 						/>
 					</div>
-					<h2 className="custom-headline-name">
-						<RichText
-							tagName="h2"
-							placeholder={__("Add name...")}
-							keepPlaceholderOnFocus
-							value={name}
-							formattingControls={["bold", "italic", "strikethrough", "link"]}
-							className="custom-headline-icon-name"
-							style={{
-								color: text_color
-							}}
-							onChange={value => setAttributes({ name: value })}
-						/>
-					</h2>
 				</div>
+				<RichText
+					tagName="div"
+					multiline="p"
+					placeholder={__("Add testimonial text...")}
+					keepPlaceholderOnFocus
+					value={testimonial}
+					formattingControls={["bold", "italic", "strikethrough", "link"]}
+					className="custom-headline-text"
+					style={{
+						color: text_color
+					}}
+					onChange={value => setAttributes({ testimonial: value })}
+				/>
+				
 			</div>
 		];
 	}
 }
 
-registerBlockType("cgb/testimonial", {
+registerBlockType("custom-headline", {
 	title: __("Custom Headline with Icon"),
 	icon: "shield",
 	category: "common",
