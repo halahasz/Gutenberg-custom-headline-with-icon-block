@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: custom-headline — CGB Gutenberg Block Plugin
+ * Plugin Name: Custom Headline with Icon — Gutenberg Block Plugin
  * Plugin URI: https://github.com/ahmadawais/create-guten-block/
- * Description: custom-headline — is a Gutenberg plugin created via create-guten-block.
- * Author: mrahmadawais, maedahbatool
- * Author URI: https://AhmadAwais.com/
+ * Description: Custom Headline with Icon — is a Gutenberg plugin created via create-guten-block.
+ * Author: halahasz
+ * Author URI: 
  * Version: 1.0.0
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
