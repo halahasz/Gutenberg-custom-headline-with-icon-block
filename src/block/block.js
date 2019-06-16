@@ -60,7 +60,7 @@ class Inspector extends Component {
 class HeadlineBlock extends Component {
 	render() {
 		const {
-			attributes: { headline, avatarUrl, avatarId, text_color },
+			attributes: { headline, iconUrl, iconId, text_color },
 			setAttributes
 		} = this.props;
 
@@ -74,40 +74,37 @@ class HeadlineBlock extends Component {
 					padding: "20px"
 				}}
 			>
-			<div className="custom-headline-info">
-					<div className="custom-headline-avatar-wrap">
-						<MediaUpload
-							buttonProps={{
-								className: "change-image"
-							}}
-							onSelect={img =>
-								setAttributes({
-									avatarUrl: img.url,
-									avatarId: img.id
-								})
-							}
-							type="image"
-							value={avatarId}
-							render={({ open }) => (
-								<Button onClick={open}>
-									{!avatarId ? (
-										<div className="icon">{icons.upload}</div>
-									) : (
-										<img
-											className="custom-headline-icon"
-											src={avatarUrl}
-											alt="avatar"
-										/>
-									)}
-								</Button>
+				<MediaUpload
+					buttonProps={{
+						className: "change-image"
+					}}
+					onSelect={img =>
+						setAttributes({
+							iconUrl: img.url,
+							iconId: img.id
+						})
+					}
+					type="image"
+					value={iconId}
+					render={({ open }) => (
+						<Button onClick={open}>
+							{!iconId ? (
+								<div className="icon">{icons.upload}</div>
+							) : (
+								<img
+									className="custom-headline-icon"
+									src={iconUrl}
+									alt="avatar"
+								/>
 							)}
-						/>
-					</div>
-				</div>
+						</Button>
+					)}
+				/>
+
 				<RichText
 					tagName="div"
 					multiline="p"
-					placeholder={__("Add testimonial text...")}
+					placeholder={__("Add headline text...")}
 					keepPlaceholderOnFocus
 					value={headline}
 					formattingControls={["bold", "italic", "strikethrough", "link"]}
@@ -117,26 +114,25 @@ class HeadlineBlock extends Component {
 					}}
 					onChange={value => setAttributes({ headline: value })}
 				/>
-				
 			</div>
 		];
 	}
 }
 
-registerBlockType("custom-headline", {
+registerBlockType("custom/headline", {
 	title: __("Custom Headline with Icon"),
 	icon: "shield",
 	category: "common",
 	keywords: [__("testimonial"), __("create guten block Example"), __("cgb")],
 	attributes: {
-		HeadlineBlock: {
-			type: "string",
+		headline: {
+			type: "string"
 		},
-		avatarUrl: {
+		iconUrl: {
 			type: "string",
-			default: "https://placehold.it/100x100"
+			default: "https://unsplash.it/30/30"
 		},
-		avatarId: {
+		iconId: {
 			type: "int",
 			default: null
 		},
@@ -148,11 +144,7 @@ registerBlockType("custom-headline", {
 	edit: HeadlineBlock,
 	save: function(props) {
 		const {
-			attributes: {
-				headline,
-				avatarUrl,
-				text_color,
-			}
+			attributes: { headline, iconUrl, text_color }
 		} = props;
 		return (
 			<div
@@ -162,7 +154,8 @@ registerBlockType("custom-headline", {
 					color: text_color
 				}}
 			>
-				{testimonial && !!testimonial.length && (
+				<img src={iconUrl} />
+				{headline && !!headline.length && (
 					<RichText.Content
 						tagName="div"
 						className="custom-headline-text"
@@ -172,11 +165,6 @@ registerBlockType("custom-headline", {
 						value={headline}
 					/>
 				)}
-				<div className="custom-headline-info">
-					<div className="custom-headline-icon-wrap">
-						<img src={avatarUrl} />
-					</div>
-				</div>
 			</div>
 		);
 	}

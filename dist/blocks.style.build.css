@@ -16,3 +16,14 @@
   margin: 0 auto;
   max-width: 740px;
   padding: 2rem; }
+
+.custom-headline {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center; }
+  .custom-headline p {
+    margin: 0; }
+
+.custom-headline-text {
+  padding-left: 20px; }
